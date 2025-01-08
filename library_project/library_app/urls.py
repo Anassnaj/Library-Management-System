@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import BookViewSet, UserViewSet, TransactionViewSet, ReturnBookView, CheckOutBookView
+from library_app.views import BookViewSet, UserViewSet, TransactionViewSet, ReturnBookView, CheckOutBookView
 
 # Create a router and register our viewsets
 router = DefaultRouter()

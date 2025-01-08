@@ -26,7 +26,7 @@ class BookViewSet(viewsets.ModelViewSet):
         return queryset
 
 # ViewSet for LibraryUser model
-class LibraryUserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = LibraryUser.objects.all()
     serializer_class = LibraryUserSerializer
 
@@ -115,3 +115,14 @@ class CheckOutBookView(APIView):
             "message": "Book checked out successfully.",
             "book": BookSerializer(book).data
         }, status=status.HTTP_200_OK)
+
+from rest_framework import viewsets
+from library_app.models import LibraryUser
+from library_app.serializers import LibraryUserSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    A ViewSet for managing library users.
+    """
+    queryset = LibraryUser.objects.all()
+    serializer_class = LibraryUserSerializer

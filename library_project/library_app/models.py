@@ -6,14 +6,14 @@ class Book(models.Model):
     author = models.CharField(max_length=100)  # The author of the book.
     isbn = models.CharField(max_length=13, unique=True)  # Unique ISBN number.
     published_date = models.DateField()  # The date the book was published.
-    copies_available = models.PositiveIntegerField()  # Number of available copies.
+    number_of_copies_available = models.PositiveIntegerField()  # Number of available copies.
 
     def __str__(self):
         return self.title
 
 class LibraryUser(AbstractUser):
     date_of_membership = models.DateField(auto_now_add=True)  # Membership date.
-    is_active = models.BooleanField(default=True)  # Indicates if the user is active.
+    is_active_member = models.BooleanField(default=True)  # Indicates if the user is active.
     
     groups = models.ManyToManyField(
         Group,

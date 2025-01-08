@@ -1,16 +1,24 @@
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+SECRET_KEY = env('SECRET_KEY', default='your-secret-key')
+DEBUG = env.bool('DEBUG', default=False)
+
 SECRET_KEY = 'django-insecure-_-w*02_v&9xw-i9x-((d_taf(in94p@*j++(=_2^$g&w8e(m9_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 INSTALLED_APPS = [
@@ -21,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'library_app',  # Ensure your app is listed here
+    'library_app',
 ]
 
 AUTH_USER_MODEL = 'library_app.LibraryUser'

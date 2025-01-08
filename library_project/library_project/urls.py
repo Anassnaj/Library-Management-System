@@ -16,16 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import render
 from rest_framework.routers import DefaultRouter
-from library_app.views import BookViewSet, UserViewSet, CheckOutBookView, ReturnBookView
+from library_app.views import BookViewSet, UserViewSet, TransactionViewSet, CheckOutBookView, ReturnBookView
 
 router = DefaultRouter()
-router.register(r'books', BookViewSet)
-router.register(r'users', UserViewSet)
+router.register(r'books', BookViewSet, basename='book')
+router.register(r'users', UserViewSet, basename= 'user')
+router.register(r'transactions', TransactionViewSet)
+
+def home(request):
+    return render(request, 'home.html')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
-    path('api/checkout/', CheckOutBookView.as_view(), name='checkout'),
-    path('api/return/', ReturnBookView.as_view(), name='return'),
+    path('admin/', admin.site.urls),  # Admin panel URL
+    path('api/v1/', include(router.urls)),  # API routes with a version prefix
+    path('api/v1/return-book/', ReturnBookView.as_view(), name='return-book'),  # API route for returning books
+    path('api/v1/checkout-book/', CheckOutBookView.as_view(), name='checkout-book'),  # API route for checking out books
+    path('', home, name='home'),
 ]

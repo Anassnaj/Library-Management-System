@@ -4,20 +4,20 @@ from .models import Book, LibraryUser, Transaction
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ['id', 'title', 'author', 'isbn', 'published_date', 'copies_available']
+        fields = ['id', 'title', 'author', 'isbn', 'published_date', 'number_of_copies_available']
 
 class LibraryUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = LibraryUser
-        fields = ['id', 'user', 'date_of_membership', 'is_active']
+        fields = ['id', 'username', 'date_of_membership', 'is_active_member']
     
     def validate_username(self, value):
-        if LibraryUser.objects.filter(user__username=value).exists():
+        if LibraryUser.objects.filter(username=value).exists():
             raise serializers.ValidationError("Username must be unique.")
         return value
     
     def validate_email(self, value):
-        if LibraryUser.objects.filter(user__email=value).exists():
+        if LibraryUser.objects.filter(email=value).exists():
             raise serializers.ValidationError("Email must be unique.")
         return value
 
